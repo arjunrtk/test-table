@@ -1,0 +1,52 @@
+<form>
+    <div class="form-group">
+      <div class="input-group">
+        <div class="input-group-addon">
+          <i class="glyphicon glyphicon-search"></i>
+        </div>
+        <input
+          #searchInput
+          type="search"
+          class="form-control"
+          name="searchString"
+          placeholder="Search Type"
+          [(ngModel)]="searchString"
+          autocomplete="off"
+        />
+      </div>
+    </div>
+  </form>
+<table class="table table-dark">
+    <thead>
+        <tr>
+            <th scope="col" [appSort]="pagedItems" data-order="desc" data-name="id" class="sort-desc">ID  &#8597;</th>
+            <th scope="col" [appSort]="pagedItems" data-order="desc" data-name="name" class="sort-desc">Name &#8597;</th>
+            <th scope="col" [appSort]="pagedItems" data-order="desc" data-name="type" class="sort-desc">Type &#8597;</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let data of pagedItems">
+            <td>{{data.id}}</td>
+            <td>{{data.name}}</td>
+            <td>{{data.type}}</td>
+        </tr>
+    </tbody>
+</table>
+
+<ul *ngIf="pager.pages && pager.pages.length" class="pagination">
+  <li [ngClass]="{disabled:pager.currentPage === 1}">
+      <a (click)="setPage(1)">&#8249;&#8249;</a>
+  </li>
+  <li [ngClass]="{disabled:pager.currentPage === 1}">
+      <a (click)="setPage(pager.currentPage - 1)">&#8249;</a>
+  </li>
+  <li *ngFor="let page of pager.pages" [ngClass]="{active:pager.currentPage === page}">
+      <a (click)="setPage(page)">{{page}}</a>
+  </li>
+  <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+      <a (click)="setPage(pager.currentPage + 1)">&#8250;</a>
+  </li>
+  <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+      <a (click)="setPage(pager.totalPages)">&#8250;&#8250;</a>
+  </li>
+</ul>
